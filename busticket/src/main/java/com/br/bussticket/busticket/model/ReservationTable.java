@@ -33,7 +33,7 @@ public class ReservationTable {
 
     @OneToOne
     @JoinColumn(name = "id_user")
-    private UserTable userTable;
+    private User user;
 
     @Column(name = "seat")
     private Integer seat;

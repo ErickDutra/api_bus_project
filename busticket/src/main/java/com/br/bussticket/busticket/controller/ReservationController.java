@@ -8,6 +8,7 @@ import com.br.bussticket.busticket.model.ReservationTable;
 import com.br.bussticket.busticket.repository.ReservationRepository;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/reservations")
 public class ReservationController {
 

@@ -8,6 +8,7 @@ import com.br.bussticket.busticket.model.TripTable;
 import com.br.bussticket.busticket.repository.TripRepository;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/trips")
 public class TripController {
 
