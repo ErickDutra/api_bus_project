@@ -1,23 +1,19 @@
 package com.br.bussticket.busticket.role;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-import lombok.Data;
-
-
-@Entity
-@Table(name = "role")
-@Data
-public class Role {
+public enum Role {
   
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
-    private String name;
+    ADMIN("admin"),
+
+    USER("user");
+
+    private String role;
+
+    Role(String role) {
+        this.role = role;
+    }
+   
+    public String getRole() {
+        return role;
+    }
 
 }
