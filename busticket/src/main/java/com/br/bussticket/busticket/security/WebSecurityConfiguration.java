@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class WebSecurityConfiguration {
+public class WebSecurityConfiguration{
    
     @Autowired
     SecurityFilter securityFilter;

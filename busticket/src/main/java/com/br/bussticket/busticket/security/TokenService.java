@@ -21,9 +21,10 @@ import java.time.ZoneOffset;
 import com.auth0.jwt.algorithms.Algorithm;
 
 @Service
-public class TokenServiceImpl {
+public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
+    
     private static final String ISSUER = "auth-api";
     private Algorithm algorithm;
 

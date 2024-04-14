@@ -17,7 +17,7 @@ import com.br.bussticket.busticket.dto.LoginResponseDTO;
 import com.br.bussticket.busticket.dto.RegisterDTO;
 import com.br.bussticket.busticket.model.User;
 import com.br.bussticket.busticket.repository.UserRepository;
-import com.br.bussticket.busticket.security.TokenServiceImpl;
+import com.br.bussticket.busticket.security.TokenService;
 
 @RestController
 @RequestMapping("auth")
@@ -27,7 +27,7 @@ public class AuthenticationController {
     @Autowired
     private UserRepository repository;
     @Autowired
-    private TokenServiceImpl tokenService;
+    private TokenService tokenService;
     
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){

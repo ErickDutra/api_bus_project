@@ -38,6 +38,9 @@ public class User implements UserDetails {
     @Column(name = "role")
     private Role role;
     
+    public User() {
+        
+    }
 
     public User( String email, String password, Role role) {
         this.email = email;
