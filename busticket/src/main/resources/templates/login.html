@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../static/main-style.css">
+    <link rel="stylesheet" href="../static/login-style.css">
+    <title>Login</title>
+</head>
+<body>
+    <nav class="nav-bar">
+        <ul>
+            <li><h1>BusTicket</h1></li>
+            <li><a href="login.html"><p>Login</p></a></li>
+            <li><a href="cadastrar.html"><p>Cadastrar</p></a></li>
+        </ul>
+    </nav>
+    <section>
+        <div class="container">
+        <div class="login">
+            <h1>Login</h1>
+            <form action="login" method="post">
+                <input type="text" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Senha">
+                <button type="submit">Entrar</button>
+                <div><a href="/cadastrar.html">Cadastra-se</a></div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
