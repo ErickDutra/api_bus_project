@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @Column(name = "name")
     private String name;
     @Column(name ="cpf")
-    private Integer cpf;
+    private Long cpf;
     @Column(name = "email")
     private String email;
     @Column(name = "password")
@@ -42,10 +42,12 @@ public class User implements UserDetails {
         
     }
 
-    public User( String email, String password, Role role) {
+    public User(Long cpf,String name, String email, String password, Role role) {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.cpf = cpf;
+        this.name = name;
     }
     
 
