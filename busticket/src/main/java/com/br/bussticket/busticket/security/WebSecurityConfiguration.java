@@ -31,11 +31,20 @@ public class WebSecurityConfiguration{
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/home").permitAll()
+                        
+                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        
+                        
                         .requestMatchers(HttpMethod.POST, "/comprar").hasRole("ADMIN")
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/auth/main").authenticated()
                         .anyRequest().authenticated()
                 )
+
+                .exceptionHandling(exception -> exception.accessDeniedPage("/login"))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

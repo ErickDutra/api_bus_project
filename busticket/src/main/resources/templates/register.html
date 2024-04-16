@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/main-style.css">
-    <link rel="stylesheet" href="../static/cadastrar-style.css">
+    <link th:href="@{/css/main-style.css}" rel="stylesheet">
+    <link th:href="@{/css/cadastrar-style.css}" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
         <div class="container">
         <div class="cadastrar">
             <h1>Cadastrar</h1>
-            <form action="cadastrar" method="post">
+            <form  id="registerForm">
                 <input type="text" name="name" placeholder="Nome">
                 <input type="text" name="email" placeholder="Email">
                 <input type="text" name="cpf" placeholder="CPF">
@@ -29,6 +29,6 @@
         </div>
     </div>
     </section>
-    <script src="cadastrar.js"></script>
+    <script th:src="@{/js/cadastrar.js}"></script>
 </body>
 </html>
