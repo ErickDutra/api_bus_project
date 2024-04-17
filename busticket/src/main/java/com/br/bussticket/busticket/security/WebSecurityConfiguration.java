@@ -43,8 +43,6 @@ public class WebSecurityConfiguration{
                         .requestMatchers(HttpMethod.GET, "/auth/main").authenticated()
                         .anyRequest().authenticated()
                 )
-
-                .exceptionHandling(exception -> exception.accessDeniedPage("/login"))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
