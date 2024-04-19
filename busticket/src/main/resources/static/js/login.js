@@ -1,16 +1,13 @@
-document.getElementById('loginForm').addEventListener('submit', function(event) {
+document.getElementById('form').addEventListener('submit', function(event) {
     event.preventDefault();
 
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
     var data = {
-        email: email,
-        password: password
+        "email": email,
+        "password": password
     };
-    formData.forEach(function(value, key) {
-        data[key] = value;
-    });
 
     fetch('/auth/login', {
         method: 'POST',
@@ -25,47 +22,32 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             throw new Error('Erro ao acessar');
         }
     }).then(function(data) {
-        // Armazenar o token de autenticação
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('userEmail', data.email);
-        localStorage.setItem('userName', data.name);
-        localStorage.setItem('userCpf', data.Cpf);
+       
+        localStorage.setItem('token', data.token);
 
-        // Adicionar o token ao cabeçalho ao navegar para /auth/main
-        var authToken = localStorage.getItem('authToken');
+        var authToken = localStorage.getItem('token');
         if (authToken) {
-            // Redirecionar para /auth/main com o token no cabeçalho
-            var headers = {
+            var header = {
                 'Authorization': 'Bearer ' + authToken
             };
 
+            console.log(header);
             fetch('/auth/main', {
                 method: 'GET',
-                headers: headers
+                headers: header
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Erro ao acessar /auth/main');
                 }
-                return response.text();
+                return response.json(); // Adicione esta linha
             })
             .then(data => {
-                if (data) {
-                    return JSON.parse(data);
-                } else {
-                    return {};
-                }
+                var token = data.token; // O token está agora disponível aqui
+                console.log(token);
+                window.location.href = '/auth/main';
             })
-            .then(function(response) {
-                // Verificar se a resposta foi bem-sucedida
-                if (response.ok) {
-                    // Redirecionar para a página principal após o login
-                    window.location.href = '/auth/main';
-                } else {
-                    // Se a resposta não foi bem-sucedida, lidar com isso de acordo com sua lógica de aplicativo
-                    console.error('Erro ao acessar /auth/main');
-                }
-            }).catch(function(error) {
+            .catch(error => {
                 console.error('Erro ao acessar /auth/main:', error);
             });
         } else {

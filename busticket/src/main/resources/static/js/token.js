@@ -1,28 +1,24 @@
 function acessarPaginaPrincipal() {
-  const token = localStorage.getItem("authToken");
-
+  const token = localStorage.getItem("token");
+  console.log(token)
   if (token) {
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-
     fetch("/auth/main", {
-      method: "GET",
-      headers: headers,
-    })
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      
+    },
+    console.log(headers)
+  )
       .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Erro ao acessar a página principal");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
       })
-      .then((data) => {
-        console.log("Dados da página principal:", data);
-      })
       .catch((error) => {
-        console.error("Erro ao acessar a página principal:", error);
+        console.error("Error:", error);
       });
+      console.log(headers)
   } else {
     console.error(
       "Token de autenticação não encontrado no armazenamento local."

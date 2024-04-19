@@ -40,7 +40,7 @@ public class WebSecurityConfiguration{
                         
                         .requestMatchers(HttpMethod.POST, "/comprar").hasRole("ADMIN")
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/auth/main").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/auth/main").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
