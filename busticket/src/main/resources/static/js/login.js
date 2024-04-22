@@ -9,21 +9,9 @@ document.getElementById('form').addEventListener('submit', function(event) {
         "password": password
     };
 
-    fetch('/auth/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    }).then(function(response) {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Erro ao acessar');
-        }
-    }).then(function(data) {
-       
-        localStorage.setItem('token', data.token);
+    axios.post('/auth/login', data)
+    .then(function(response) {
+        localStorage.setItem('token', response.data.token);
 
         var authToken = localStorage.getItem('token');
         if (authToken) {
@@ -32,18 +20,9 @@ document.getElementById('form').addEventListener('submit', function(event) {
             };
 
             console.log(header);
-            fetch('/auth/main', {
-                method: 'GET',
-                headers: header
-            })
+            axios.get('/auth/main', { headers: header })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao acessar /auth/main');
-                }
-                return response.json(); // Adicione esta linha
-            })
-            .then(data => {
-                var token = data.token; // O token está agora disponível aqui
+                var token = response.data.token; 
                 console.log(token);
                 window.location.href = '/auth/main';
             })
