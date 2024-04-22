@@ -34,4 +34,12 @@ public class TripTable {
     @Column(name = "priceTrip")
     private float priceTrip;
 
+    TripTable(String name, String origin, String destination, String matchData, String arrivalData, float priceTrip) {
+        this.origin = origin;
+        this.destination = destination;
+        this.matchData = matchData;
+        this.arrivalData = arrivalData;
+        this.priceTrip = priceTrip;
+    }
+
 }

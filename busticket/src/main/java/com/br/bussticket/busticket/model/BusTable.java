@@ -25,5 +25,11 @@ public class BusTable {
     @Column(name = "numberSeats")
     @Max(32) 
     private Integer numberSeats;
+   
+    BusTable(String model_bus, String plate_bus, Integer numberSeats) {
+        this.model_bus = model_bus;
+        this.plate_bus = plate_bus;
+        this.numberSeats = numberSeats;
+    }
 
 }

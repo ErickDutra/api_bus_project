@@ -42,4 +42,10 @@ public class ReservationTable {
     @Column(name = "status")
     private ReservationStatus status;
 
+    ReservationTable(TripTable busTable, User user, Integer seat, ReservationStatus status) {
+        this.busTable = busTable;
+        this.user = user;
+        this.seat = seat;
+        this.status = status;
+    }
 }
