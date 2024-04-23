@@ -11,28 +11,9 @@ document.getElementById('form').addEventListener('submit', function(event) {
 
     axios.post('/auth/login', data)
     .then(function(response) {
-        localStorage.setItem('token', response.data.token);
-
-        var authToken = localStorage.getItem('token');
-        if (authToken) {
-            var header = {
-                'Authorization': 'Bearer ' + authToken
-            };
-
-            console.log(header);
-            axios.get('/auth/main', { headers: header })
-            .then(response => {
-                var token = response.data.token; 
-                console.log(token);
-                window.location.href = '/auth/main';
-            })
-            .catch(error => {
-                console.error('Erro ao acessar /auth/main:', error);
-            });
-        } else {
-            console.error('Token de autenticação não encontrado.');
-        }
-        
+        const authToken = response.data.token;
+        localStorage.setItem('token', authToken);
+        window.location.href = '/auth/main';
     }).catch(function(error) {
         console.error(error);
     });

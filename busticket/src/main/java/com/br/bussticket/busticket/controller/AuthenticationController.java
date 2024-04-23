@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +26,7 @@ import com.br.bussticket.busticket.security.TokenService;
 import com.br.bussticket.busticket.service.UserService;
 
 
-@Controller
+@RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
     
@@ -43,14 +43,14 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
+    public LoginResponseDTO login(@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
         System.out.println(token);
 
-        return ResponseEntity.ok().header("Authorization", "Bearer " + token).body(new LoginResponseDTO(token));
+        return new LoginResponseDTO(token);
     }
 
     @PostMapping("/register")
@@ -66,20 +66,28 @@ public class AuthenticationController {
 
 
     @GetMapping("/main")
-    public ModelAndView mainPage(@RequestHeader HttpHeaders headers) {
+    public ModelAndView mainPage(@RequestHeader("Authorization") String authorization) {
     
-        String authHeader = headers.getFirst("Authorization");
-        System.out.println(authHeader);
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            String email = tokenService.validateToken(token);
-            User user = repository.findByEmail(email);
-    
-            if (user != null) {
-                return new ModelAndView("main");
-            }
+        System.out.println(authorization);
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("Token invalido");
+            return new ModelAndView("login");
         }
-    
-        return new ModelAndView("login");
+
+        // https://www.baeldung.com/slf4j-with-log4j2-logback
+
+        String token = authHeader.substring(7);
+        System.out.println("Token " + token);
+
+        String email = tokenService.validateToken(token);
+        User user = repository.findByEmail(email);
+
+        if (user == null) {
+            System.out.println("Usuario invalido");
+            return new ModelAndView("login");
+        }
+
+        return new ModelAndView("main");
     }
 }
