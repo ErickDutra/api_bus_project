@@ -3,7 +3,7 @@ function acessarPaginaPrincipal() {
   console.log(token)
   if (token) {
     const headers = {
-      Authorization: "Bearer " + token,
+      Authorization: token,
     };
     console.log(headers);
 
